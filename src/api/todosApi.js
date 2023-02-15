@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const todosApi = axios.create({
-  baseURL: "http//localhost:5000",
+  baseURL: "http://localhost:5000",
 })
 
 export const getTodos = async () => {
@@ -10,15 +10,15 @@ export const getTodos = async () => {
 }
 
 export const addTodos = async (todo) => {
-  return await todosApi.post("/post", todo)
+  return await todosApi.post("/todos", todo)
 }
 
 export const updateTodos = async (todo) => {
-  return await todosApi.patch(`/post/${todo.id}`, todo)
+  return await todosApi.patch(`/todos/${todo.id}`, todo)
 }
 
 export const deleteTodos = async ({ id }) => {
-  return await todosApi.delete(`/post/${id}`, id)
+  return await todosApi.delete(`/todos/${id}`, id)
 }
 
 export default todosApi
