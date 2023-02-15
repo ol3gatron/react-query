@@ -33,8 +33,45 @@ const TodoList = () => {
     }
   })
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    addTodoMutation.mutate({ userId: 1, title: newTodo, completed: false })
+    setNewTodo("")
+  }
+
+  const newItemSection = (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="new-todo">Enter a new todo item</label>
+      <div className="new-todo">
+        <input
+          type="text"
+          id="new-todo"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Enter a new todo"
+        />
+      </div>
+      <button className="submit">
+        <FontAwesomeIcon icon={faUpload}/>
+      </button>
+    </form>
+  )
+
+  let content
+  if (isLoading) {
+    content = <p>Loading...</p>
+  } else if (isError) {
+    content = <p>{error.message}</p>
+  } else {
+    content = JSON.stringify(todos)
+  }
+
   return (
-    <div>TodoList</div>
+    <main>
+      <h1>Todo list</h1>
+      {newItemSection}
+      {content}
+    </main>
   )
 }
 export default TodoList
